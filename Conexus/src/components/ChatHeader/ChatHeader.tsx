@@ -1,17 +1,23 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Pressable, StatusBar } from 'react-native'
 import React from 'react';
 import Icon from "../../utils/Icon";
 import { useThemeColors } from '../../utils/color';
+import { useNavigation } from '@react-navigation/native';
 
 const ChatHeader: React.FC = () => {
-    const { accent } = useThemeColors();
+    const navigation = useNavigation()
+    const { accent, background } = useThemeColors();
     return (
         <View style={styles.header}>
+            <StatusBar backgroundColor={background} barStyle="dark-content" />
             <Text style={styles.headingtxt}>Conexus</Text>
             <View style={styles.iconContainer}>
-                <Icon name='qrcode-scan' color={accent} size={28} type='MaterialCommunityIcons' />
-                <Icon name='camera-outline' color={accent} size={32} type='Ionicons' />
-                <Icon name='dots-three-vertical' color={accent} size={25} type='Entypo' />
+                <Pressable onPress={() => navigation.navigate("qrcode")}>
+                    <Icon name='qrcode-scan' color={accent} size={28} type='MaterialCommunityIcons' />
+                </Pressable>
+                <Pressable>
+                    <Icon name='dots-three-vertical' color={accent} size={25} type='Entypo' />
+                </Pressable>
             </View>
         </View>
     )
@@ -24,8 +30,9 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        paddingBottom: "1.5%",
+        paddingBottom: "1%",
         paddingLeft: "2.7%",
+        paddingTop: "4%"
     },
     headingtxt: {
         fontSize: 29,
@@ -36,6 +43,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-around",
-        gap: "5%"
+        gap: "9%"
     }
 })

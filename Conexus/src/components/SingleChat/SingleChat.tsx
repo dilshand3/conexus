@@ -1,5 +1,6 @@
 import { Alert, Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 interface SingleChatData {
     name: string;
@@ -9,15 +10,17 @@ interface SingleChatData {
 }
 
 const SingleChat: React.FC<SingleChatData> = ({ name, dpimg, date, lastmsg }) => {
+    const navigation = useNavigation();
     return (
         <View style={styles.chatContainer}>
             <Image source={dpimg} style={styles.dp} />
-            <Pressable style={styles.chatContent} onPress={() => Alert.alert("i am dilshan")}>
+            <Pressable style={styles.chatContent} onPress={() => navigation.navigate("chatmsg")}>
                 <View style={styles.chatHeader}>
                     <Text style={styles.name}>{name}</Text>
                     <Text style={styles.date}>{date}</Text>
                 </View>
                 <Text style={styles.message}>{lastmsg}</Text>
+                <Text style={styles.totalmsgNum}>2</Text>
             </Pressable>
         </View>
     )
@@ -63,4 +66,15 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#555',
     },
+    totalmsgNum : {
+        position : "absolute",
+        right : 0,
+        bottom : -2,
+        backgroundColor : "#3498DB",
+        color : "white",
+        paddingHorizontal : 8,
+        paddingVertical : 2,
+        borderRadius : 100,
+        justifyContent : "center"
+    }
 });

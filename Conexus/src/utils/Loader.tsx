@@ -29,7 +29,7 @@ const Loader: React.FC = () => {
     return (
         <View style={styles.container}>
             {animations.map((anim, index) => {
-                const rotate = index * 45; // 8 bars, so 360 / 8 = 45 deg
+                const rotate = index * 45;
                 return (
                     <Animated.View
                         key={index}

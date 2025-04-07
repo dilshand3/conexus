@@ -1,12 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet } from 'react-native'
 import React from 'react';
 import AddUser from '../../components/AddUser/AddUser';
+import { exploreUser } from '../../dummyData/Chat';
 
-const Dicover = () => {
+const Dicover: React.FC = () => {
     return (
-        <View style={styles.container}>
-            <AddUser/>
-        </View>
+        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+            {
+                exploreUser.map((val, index) => (
+                    <AddUser key={index} name={val.name} username={val.username} avatar={val.avatar} />
+                ))
+            }
+        </ScrollView>
     )
 }
 

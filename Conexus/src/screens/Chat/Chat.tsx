@@ -1,4 +1,4 @@
-import { Pressable, RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
+import { Pressable, RefreshControl, ScrollView, StyleSheet, View,StatusBar } from 'react-native';
 import React, { useState } from 'react';
 import ChatHeader from "../../components/ChatHeader/ChatHeader";
 import { useThemeColors } from "../../utils/color";
@@ -8,6 +8,7 @@ import SearchInput from '../../components/SearchInput/SearchInput';
 import ChatFooter from '../../components/ChatFooter/ChatFooter';
 import Icon from '../../utils/Icon';
 import Loader from '../../utils/Loader';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const Chat: React.FC = ({ navigation }) => {
   const { color, accent } = useThemeColors();
@@ -22,6 +23,7 @@ const Chat: React.FC = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <StatusBar/>
       <ChatHeader />
       <ScrollView showsVerticalScrollIndicator={false}
         refreshControl={
@@ -42,7 +44,7 @@ const Chat: React.FC = ({ navigation }) => {
         <ChatFooter />
       </ScrollView>
       <Pressable style={styles.addIcon} onPress={() => navigation.navigate("notification")}>
-        <Icon name='plus' type='Entypo' color={"white"} size={32} />
+        <Icon name='heart' type='EvilIcons' color={"white"} size={38} />
       </Pressable>
     </View>
   )
@@ -59,11 +61,14 @@ const styles = StyleSheet.create({
   },
   addIcon: {
     backgroundColor: "#3498DB",
-    alignSelf: "flex-end",
-    padding: 12,
-    borderRadius: 32,
+    alignSelf: "center",
+    padding: 14,
+    borderRadius: 50,
     position: "absolute",
     bottom: "5%",
-    right: "5%"
+    right: "5%",
+    height: 60,
+    width: 60,
+    paddingLeft: 11
   }
 })

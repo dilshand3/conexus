@@ -1,11 +1,28 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { ScrollView, StyleSheet, Text, View, Pressable } from 'react-native'
+import React from 'react';
+import SingleCall from '../../components/SingleCall/SingleCall';
+import Icon from '../../utils/Icon';
+import { useThemeColors } from '../../utils/color';
+import { callsData } from '../../dummyData/Chat';
 
 const Calls: React.FC = () => {
+  const { accent } = useThemeColors()
   return (
-    <ScrollView style={styles.container}>
-      <Text>Calls</Text>
-    </ScrollView>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={[styles.headerTitle, { color: accent }]}>Recent Calls</Text>
+        <Pressable >
+          <Icon name='dots-three-vertical' color={accent} size={25} type='Entypo' />
+        </Pressable>
+      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {
+          callsData.map((val, index) => (
+            <SingleCall key={index} avatar={val.avatar} name={val.name} type={val.type} count={val.count} direction={val.direction} answered={val.answered} date={val.date} />
+          ))
+        }
+      </ScrollView>
+    </View>
   )
 }
 
@@ -16,6 +33,19 @@ const styles = StyleSheet.create({
     paddingVertical: "1.8%",
     paddingHorizontal: "2%",
     backgroundColor: "#F4FBFF",
-    flex: 1
+    flex: 1,
+    paddingTop : "4%"
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: "1%",
+    paddingHorizontal: "2.5%",
+    marginBottom : "2%"
+  },
+  headerTitle: {
+    fontSize: 27,
+    fontWeight: "600"
   }
 })

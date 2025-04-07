@@ -5,18 +5,13 @@ import { useThemeColors } from '../../utils/color';
 import ProfileDetail from '../../components/ProfileDetail/ProfileDetail';
 import { profileDetailData } from '../../dummyData/Chat';
 
-const Profile: React.FC = () => {
+const Profile: React.FC = ({navigation}) => {
     const dpImg = require("../../assets/dp/dp.jpeg");
     const { accent } = useThemeColors();
 
     return (
         <ScrollView style={styles.container}>
-            <View style={styles.dpContainer}>
                 <Image source={dpImg} style={styles.img} />
-                <Pressable style={[styles.updateDp, { backgroundColor: accent }]}>
-                    <Icon name='camera-outline' color={"white"} size={24} type='Ionicons' />
-                </Pressable>
-            </View>
             <View style={styles.username}>
                 <Icon name='user' type='Entypo' size={29} color={accent} />
                 <Text style={[styles.username, { marginTop: "-0.3%" }]}>dilshan.d3</Text>
@@ -27,7 +22,7 @@ const Profile: React.FC = () => {
                 ))
             }
             <View style={styles.bottombtn}>
-                <Pressable style={[styles.btn, styles.editbtn]}><Text style={[styles.btntxt, { color: "#3498DB" }]}>Edit Profile</Text></Pressable>
+                <Pressable style={[styles.btn, styles.editbtn]} onPress={() => navigation.navigate("editProfile")}><Text style={[styles.btntxt, { color: "#3498DB" }]}>Edit Profile</Text></Pressable>
                 <Pressable style={styles.btn}><Text style={styles.btntxt}>LogOut</Text></Pressable>
             </View>
         </ScrollView>
@@ -50,8 +45,12 @@ const styles = StyleSheet.create({
     },
     img: {
         borderRadius: 370,
-        height: 190,
-        width: 190
+        height: 200,
+        width: 200,
+        margin : "auto",
+        marginTop : "10%",
+        borderWidth : 4,
+        borderColor : "#3498DB"
     },
     updateDp: {
         position: 'absolute',

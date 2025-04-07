@@ -1,31 +1,40 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
-import Chat from "../../screens/Chat/Chat.tsx";
-import Group from "../../screens/Group/Group.tsx"
+import { NavigationContainer, getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import Calls from '../../screens/Calls/Calls.tsx';
-import Profile from "../../screens/Profile/Profile.tsx";
+import ProfileStackNavigation from '../ProfileStackNavigation/ProfileStackNavigation.tsx';
 import Icon from '../../utils/Icon.tsx';
 import { useThemeColors } from "../../utils/color.ts";
-import StackNavigation from "../StackNavigation/StackNavigation.tsx";
+import StackNavigation from "../ChatStackNavigation/ChatStackNavigation.tsx";
+import Search from '../../screens/Search/Search.tsx';
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
   const { color, accent } = useThemeColors();
   return (
-    <Tab.Navigator screenOptions={{
-      headerShown: false, tabBarActiveTintColor: accent, tabBarInactiveTintColor: color, tabBarIconStyle: {
-        marginTop: "0.3%"
-      }, tabBarLabelStyle: {
-        fontWeight: "400",
-        fontSize: 15,
-        textAlign: "center",
-        marginTop: "-3%"
-      },
-      tabBarStyle: {
-        backgroundColor: "#F4FBFF",
-      }
-    }}>
+    <Tab.Navigator
+      screenOptions={({ route }) => {
+        const routeName = getFocusedRouteNameFromRoute(route) ?? '';
+
+        return {
+          headerShown: false,
+          tabBarActiveTintColor: accent,
+          tabBarInactiveTintColor: color,
+          tabBarIconStyle: {
+            marginTop: "0.3%"
+          },
+          tabBarLabelStyle: {
+            fontWeight: "400",
+            fontSize: 15,
+            textAlign: "center",
+            marginTop: "-3%"
+          },
+          tabBarStyle: ['chatmsg', 'notification', 'qrcode','videocall'].includes(routeName)
+            ? { display: 'none' }
+            : { backgroundColor: "#F4FBFF" }
+        };
+      }}
+    >
       <Tab.Screen
         name='Chats'
         component={StackNavigation}
@@ -36,11 +45,11 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name='Groups'
-        component={Group}
+        name='Search'
+        component={Search}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
-            <Icon name={focused ? "account-group" : "account-group-outline"} color={color} size={33} type='MaterialCommunityIcons' />
+            <Icon name={"search-outline"} color={color} size={30} type='Ionicons' />
           )
         }}
       />
@@ -55,7 +64,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name='Profle'
-        component={Profile}
+        component={ProfileStackNavigation}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Icon name={focused ? "user" : "user-o"} color={color} size={size} type='FontAwesome' />

@@ -3,7 +3,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Notification from '../../screens/Notification/Notification';
 import Chat from '../../screens/Chat/Chat';
 import { View, StyleSheet } from 'react-native';
-import Icon from '../../utils/Icon';
+import ChatMsg from '../../screens/ChatMsg/ChatMsg';
+import QrCodeNavigation from '../QrCodeNavigation/QrCodeNavigation';
+import VideoCallScreen from '../../screens/VideoCallScreen/VideoCallScreen';
 
 const Stack = createNativeStackNavigator();
 const StackNavigator = () => (
@@ -13,24 +15,11 @@ const StackNavigator = () => (
         <Stack.Screen
             name='notification'
             component={Notification}
-            options={({ navigation }) => ({
-                title: 'Notifications',
-                headerStyle: {
-                    backgroundColor: "#F4FBFF",
-                },
-                headerTintColor: '#3498DB',
-                headerLeft: () => (
-                    <Icon
-                        name="angle-left"
-                        size={34}
-                        color="#3498DB"
-                        type='FontAwesome'
-                        style={{ marginRight: "5%", marginLeft: "2%" }}
-                        onPress={() => navigation.goBack()}
-                    />
-                ),
-            })}
+            options={{ headerShown: false }}
         />
+        <Stack.Screen name='qrcode' component={QrCodeNavigation} options={{ headerShown: false }} />
+        <Stack.Screen name='chatmsg' component={ChatMsg} options={{ headerShown: false }} />
+        <Stack.Screen name='videocall' component={VideoCallScreen} options={{headerShown : false}} />
     </Stack.Navigator>
 )
 

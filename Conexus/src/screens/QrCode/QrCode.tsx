@@ -1,16 +1,15 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react';
-import NotificationNavigation from '../../Navigation/NotificationTopNavigation/NotificationTopNavigation';
 
-const Notification: React.FC = () => {
+const QrCode: React.FC = () => {
     return (
-        <View style={styles.container}>
-            <NotificationNavigation />
-        </View>
+        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+            <Text>QrCode</Text>
+        </ScrollView>
     )
 }
 
-export default Notification;
+export default QrCode;
 
 const styles = StyleSheet.create({
     container: {
@@ -18,5 +17,5 @@ const styles = StyleSheet.create({
         paddingHorizontal: "2%",
         backgroundColor: "#F4FBFF",
         flex: 1
-    },
+    }
 })
