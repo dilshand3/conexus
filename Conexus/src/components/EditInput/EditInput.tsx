@@ -2,11 +2,11 @@ import { StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState } from 'react';
 import { useThemeColors } from '../../utils/color';
 
-interface EditInput {
+interface IEditInput {
     value: any;
 }
 
-const EditInput: React.FC<EditInput> = ({ value }) => {
+const EditInput: React.FC<IEditInput> = ({ value }) => {
     const { accent } = useThemeColors();
     const [data, setdata] = useState<any>(value)
     return (

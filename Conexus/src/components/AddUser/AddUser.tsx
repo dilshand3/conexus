@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Pressable, Alert } from 'react-native';
 
-interface addUser {
+interface IaddUser {
   name: string;
   username: string;
   avatar: any
 }
 
-const AddUser: React.FC<addUser> = ({ name, username, avatar }) => {
+const AddUser: React.FC<IaddUser> = ({ name, username, avatar }) => {
   return (
     <View style={styles.container}>
       <Image source={avatar} style={styles.avatar} />

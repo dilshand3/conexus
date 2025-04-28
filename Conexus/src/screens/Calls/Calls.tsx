@@ -3,12 +3,14 @@ import React from 'react';
 import SingleCall from '../../components/SingleCall/SingleCall';
 import Icon from '../../utils/Icon';
 import { useThemeColors } from '../../utils/color';
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 import { callsData } from '../../dummyData/Chat';
 
 const Calls: React.FC = () => {
-  const { accent } = useThemeColors()
+  const { accent } = useThemeColors();
+  const inset = useSafeAreaInsets();
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,{paddingTop : inset.top}]}>
       <View style={styles.header}>
         <Text style={[styles.headerTitle, { color: accent }]}>Recent Calls</Text>
         <Pressable >
@@ -34,7 +36,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: "2%",
     backgroundColor: "#F4FBFF",
     flex: 1,
-    paddingTop : "4%"
   },
   header: {
     flexDirection: "row",

@@ -3,14 +3,14 @@ import React from 'react';
 import Icon from "../../utils/Icon";
 import { useThemeColors } from '../../utils/color';
 
-interface ProfileDetailProps {
+interface IProfileDetailProps {
   iconname : string;
   type : string;
   title : string;
   name : string;
 }
 
-const ProfileDetail: React.FC<ProfileDetailProps> = ({iconname,type,title,name}) => {
+const ProfileDetail: React.FC<IProfileDetailProps> = ({iconname,type,title,name}) => {
   const { accent } = useThemeColors();
   return (
     <View style={styles.container}>
