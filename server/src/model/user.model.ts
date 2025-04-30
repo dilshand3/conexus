@@ -81,13 +81,17 @@ const userSchema = new Schema<Iuser>({
     }],
     RecivedRequest: [{
         type: Schema.Types.ObjectId,
-        res: "User"
+        ref: "User"
     }],
     typingTo: {
         type: Schema.Types.ObjectId,
         ref: "User",
         default: null
-    }
+    },
+    blockList : [{
+        type : Schema.Types.ObjectId,
+        ref : "User"
+    }]
 }, { timestamps: true });
 
 userSchema.pre("save", async function (next) {

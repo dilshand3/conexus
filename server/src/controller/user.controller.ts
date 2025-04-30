@@ -265,6 +265,13 @@ const addFriend = async (req: IAuthenticatedRequest, res: Response<IResponse>): 
             })
         }
 
+        if (receiver.blockList?.includes(sender._id)) {
+            return res.status(401).json({
+                success : false,
+                message : "Can't add friend"
+            })
+        }
+
         if (sender.friends?.includes(receiver._id) || receiver.friends?.includes(sender._id)) {
             return res.status(409).json({
                 success: false,
@@ -283,6 +290,60 @@ const addFriend = async (req: IAuthenticatedRequest, res: Response<IResponse>): 
             message: "Friend Req sent succesfully"
         })
 
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error"
+        })
+    }
+}
+
+const blockUser = async (req: IAuthenticatedRequest, res: Response<IResponse>): Promise<any> => {
+    const userId = req.userId;
+    const { friendId } = req.params;
+    try {
+        const user = await User.findById(userId);
+        const blockUser = await User.findById(friendId);
+        if (!user || !blockUser) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            })
+        }
+        user.blockList?.push(blockUser._id);
+        await user.save();
+        res.status(200).json({
+            success: true,
+            message: "User blocked Successfully",
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error"
+        })
+    }
+}
+
+const removeUserBlockList = async (req: IAuthenticatedRequest, res: Response<IResponse>): Promise<any> => {
+    const userId = req.userId;
+    const { friendId } = req.params;
+    try {
+        const user = await User.findById(userId);
+        const blockUser = await User.findById(friendId);
+        if (!user || !blockUser) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            })
+        }
+        user.blockList = user.blockList?.filter(
+            (id) => id.toString() !== friendId
+        )
+        await user.save();
+        res.status(200).json({
+            success: true,
+            message: "User unblocked Successfully",
+        })
     } catch (error) {
         res.status(500).json({
             success: false,
@@ -333,5 +394,38 @@ const acceptFriend = async (req: IAuthenticatedRequest, res: Response<IResponse>
     }
 }
 
+const removeFriend = async (req: IAuthenticatedRequest, res: Response<IResponse>): Promise<any> => {
+    const userId = req.userId;
+    const { friendId } = req.params;
+    try {
+        const user = await User.findById(userId);
+        const friendUser = await User.findById(friendId);
+        if (!user || !friendUser) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            })
+        }
 
-export { signUp, login, shareUser, logout, completeProfile, uploadTempAvatar, addFriend,acceptFriend }
+        user.friends = user.friends?.filter(
+            (id) => id.toString() !== friendId
+        )
+        friendUser.friends = friendUser.friends?.filter(
+            (id) => id.toString() !== userId
+        )
+
+        await user.save();
+        await friendUser.save();
+        res.status(200).json({
+            success: true,
+            message: "Friend removed succesfully"
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Internal Server"
+        })
+    }
+}
+
+export { signUp, login, shareUser, logout, completeProfile, uploadTempAvatar, blockUser, removeUserBlockList,addFriend, acceptFriend, removeFriend }
