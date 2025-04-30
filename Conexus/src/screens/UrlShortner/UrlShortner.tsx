@@ -1,86 +1,124 @@
-import { StyleSheet, Text, View, ScrollView, Pressable, TouchableOpacity, TextInput } from 'react-native'
-import React, { useState } from 'react';
+import { StyleSheet, Text, View, ScrollView, Pressable, TouchableOpacity, TextInput } from 'react-native';
+import React, { useState, useEffect } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from '../../utils/Icon';
 import { Alert } from 'react-native';
-import { shortUrls } from '../../dummyData/Chat';
 import { useCreateShorturlMutation } from '../../Redux/ShortUrlSlice/ShortUrlSlice';
+import Loader from '../../utils/Loader';
+import EncryptedStorage from 'react-native-encrypted-storage';
 
 interface Inavigation {
-  navigation : any;
+  navigation: any;
+}
+
+interface ShortUrl {
+  originalUrl: string;
+  shortUrl: string;
 }
 
 const UrlShortner: React.FC<Inavigation> = ({ navigation }) => {
-  const [originalUrl, setOriginalUrl] = useState<string>("");
-  const [Navigate, setNavigate] = useState<number>(1)
-  const [createShorturl, { data, isError, isLoading,isSuccess }] = useCreateShorturlMutation();
+  const [originalUrl, setOriginalUrl] = useState<string>('');
+  const [shortUrls, setShortUrls] = useState<ShortUrl[]>([]);
+  const [createShorturl, { data, isError, isLoading, isSuccess, error }] = useCreateShorturlMutation();
   const insets = useSafeAreaInsets();
 
-  const handleSubmit = async () => {
-    console.log(originalUrl)
+  useEffect(() => {
+    const loadStoredUrls = async () => {
+      try {
+        const storedUrls = await EncryptedStorage.getItem('short_urls');
+        if (storedUrls) {
+          setShortUrls(JSON.parse(storedUrls));
+        }
+      } catch (error) {
+        console.error('Failed to load stored URLs:', error);
+      }
+    };
+    loadStoredUrls();
+  }, []);
+
+  useEffect(() => {
+    if (isSuccess && data?.success && data?.data) {
+      const newUrl = {
+        originalUrl,
+        shortUrl: (data.data as any).shortUrl, 
+      };
+      const updatedUrls = [newUrl, ...shortUrls];
+      setShortUrls(updatedUrls);
+      setOriginalUrl('');
+      Alert.alert('Success', 'URL created successfully');
+
+      EncryptedStorage.setItem('short_urls', JSON.stringify(updatedUrls)).catch((error) => {
+        console.error('Failed to save URLs:', error);
+      });
+    }
+    if (isError) {
+      console.log(error)
+      Alert.alert('Error', 'Failed to create URL');
+    }
+  }, [isSuccess, isError, data,isLoading]);
+
+  const handleSubmit = async (): Promise<void> => {
     if (!originalUrl.trim()) {
-      Alert.alert("Please enter a valid URL");
+      Alert.alert('Error', 'Please enter a valid URL');
       return;
     }
+    await createShorturl({ originalUrl });
+  };
 
+  const handleDeleteAll = async (): Promise<void> => {
     try {
-      const res = await createShorturl(originalUrl);
-      if (res.data?.success) {
-        Alert.alert("Success", "Short URL created successfully");
-        console.log(res)
-        setOriginalUrl("");
-      } else {
-        console.log("Error response:", res);
-        Alert.alert("Error", res?.error?.data?.message || "Something went wrong");
-      }
+      await EncryptedStorage.removeItem('short_urls');
+      setShortUrls([]);
+      Alert.alert('Success', 'All URLs deleted');
     } catch (error) {
-      console.log("Catch error:", error);
-      Alert.alert("Error", "Unexpected error occurred");
+      console.error('Failed to delete URLs:', error);
+      Alert.alert('Error', 'Failed to delete URLs');
     }
   };
 
-
-  const handleNavigate = (): void => {
-    if (Navigate < 3) {
-      setNavigate(Navigate + 1)
-    }
-    else if (Navigate == 3) {
-      navigation.navigate("Authentication")
-    }
-  }
+  const handleNavigateToAuth = (): void => {
+    navigation.navigate('Authentication');
+  };
 
   return (
     <ScrollView style={[styles.container, { paddingTop: insets.top }]}>
       <Pressable style={styles.header}>
-        <Icon name='link' type='Entypo' color={"#00396e"} size={30} />
+        <Icon name="link" type="Entypo" color="#00396e" size={30} />
         <Text style={styles.headerTxt}>CONEXUS</Text>
       </Pressable>
       <View style={styles.mainContainer}>
         <TextInput
           style={styles.input}
-          placeholder='Original URL'
+          placeholder="Original URL"
           value={originalUrl}
-          onChangeText={(text) => setOriginalUrl(text)} />
-        <TouchableOpacity onPress={() => handleSubmit(originalUrl)} activeOpacity={0.4} style={styles.btn}><Text style={styles.shortURLbtn}>SHORT URL</Text></TouchableOpacity>
+          onChangeText={(text) => setOriginalUrl(text)}
+        />
+        <TouchableOpacity onPress={handleSubmit} activeOpacity={0.4} style={styles.btn}>
+          <Text style={styles.shortURLbtn}>{isLoading ? <Loader /> : 'SHORT URL'}</Text>
+        </TouchableOpacity>
         <View style={styles.urlContainer}>
-          <Pressable onPress={handleNavigate}>
+          <Pressable onPress={handleNavigateToAuth}>
             <Text style={styles.historyTitle}>Link History</Text>
           </Pressable>
-          {
+          {shortUrls.length > 0 ? (
             shortUrls.map((val, index) => (
               <View style={styles.singleUrl} key={index}>
-                <Icon name='link' type='Entypo' size={18} />
-                <Text style={styles.linktxt}>{val}</Text>
-                <Icon name='content-copy' type='MaterialCommunityIcons' size={18} />
+                <Icon name="link" type="Entypo" size={18} />
+                <Text style={styles.linktxt}>{val.shortUrl}</Text>
+                <Icon name="content-copy" type="MaterialCommunityIcons" size={18} />
               </View>
             ))
-          }
+          ) : (
+            <Text style={styles.nourlMsg}>No URLs available</Text>
+          )}
         </View>
-        <TouchableOpacity style={styles.btn}><Text style={styles.shortURLbtn}>DELETE ALL URL</Text></TouchableOpacity>
+        <TouchableOpacity onPress={handleDeleteAll} style={styles.btn}>
+          <Text style={styles.shortURLbtn}>DELETE ALL URLS</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
-  )
-}
+  );
+};
 
 export default UrlShortner;
 const styles = StyleSheet.create({
@@ -106,7 +144,8 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     borderColor: "#00396e",
     paddingHorizontal: "4%",
-    fontSize: 18
+    fontSize: 18,
+    height : 60
   },
   btn: {
     backgroundColor: "#00396e",
@@ -125,13 +164,15 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-around",
-    height: "100%"
+    height: "100%",
+    gap : 10
   },
   urlContainer: {
-    borderWidth: 0.3,
+    borderWidth: 0.7,
     paddingVertical: "4%",
     paddingHorizontal: 12,
     borderRadius: 8,
+    width : "100%"
   },
   historyTitle: {
     fontSize: 23,
@@ -149,5 +190,11 @@ const styles = StyleSheet.create({
   linktxt: {
     fontSize: 18,
     fontWeight: "400"
+  },
+  nourlMsg : {
+    color : "red",
+    fontSize : 15,
+    textAlign : "center",
+    marginTop : 10
   }
 })

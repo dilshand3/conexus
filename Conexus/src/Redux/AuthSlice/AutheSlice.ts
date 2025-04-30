@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // import { API_KEY as api } from "@env";
 
-const api = "http://192.168.75.10:2392"
+const api = "http://192.168.43.249:2392"
 
 interface IAuthRequest {
     username: string;
@@ -25,14 +25,14 @@ export const AuthSlice = createApi({
     endpoints: (builder) => ({
         signup: builder.mutation<IAuthResponse, IAuthRequest>({
             query: (formData) => ({
-                url: "/api/signup",
+                url: "/api/user/signup",
                 method: "POST",
                 body: formData
             })
         }),
         login: builder.mutation<IAuthResponse, IAuthRequest>({
             query: (formData) => ({
-                url: "/api/login",
+                url: "/api/user/login",
                 method: "POST",
                 body:formData
             })

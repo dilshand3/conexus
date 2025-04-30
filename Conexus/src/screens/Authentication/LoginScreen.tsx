@@ -68,7 +68,7 @@ const LoginScreen: React.FC<Ilogin> = ({ navigation }) => {
                             <Text style={styles.or}>OR Login With</Text>
                             <View style={styles.line} />
                         </View>
-                        <TouchableOpacity activeOpacity={0.4} style={styles.loginOption}>
+                        <TouchableOpacity onPress={() => navigation.navigate("conexus")} activeOpacity={0.4} style={styles.loginOption}>
                             <Image source={googleImg} />
                             <Text style={styles.loginOptionTxt}>Login with Google</Text>
                         </TouchableOpacity>
