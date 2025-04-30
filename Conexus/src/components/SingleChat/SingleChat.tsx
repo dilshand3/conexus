@@ -2,14 +2,14 @@ import { Alert, Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 
-interface SingleChatData {
+interface ISingleChatData {
     name: string;
     dpimg: any;
     date: string;
     lastmsg: string
 }
 
-const SingleChat: React.FC<SingleChatData> = ({ name, dpimg, date, lastmsg }) => {
+const SingleChat: React.FC<ISingleChatData> = ({ name, dpimg, date, lastmsg }) => {
     const navigation = useNavigation();
     return (
         <View style={styles.chatContainer}>

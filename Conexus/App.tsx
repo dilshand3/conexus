@@ -1,9 +1,12 @@
-import { StyleSheet, View, SafeAreaView } from 'react-native'
+import { StyleSheet, SafeAreaView } from 'react-native'
 import React, { useEffect } from 'react';
-import BottomNavigation from "./src/Navigation/BottomTab/BottomNavigation"
 import { useThemeColors } from "./src/utils/color";
 import { useCameraPermission } from 'react-native-vision-camera';
-import { userequestMicrophonePermission } from "./src/utils/AudioPermission"
+import { userequestMicrophonePermission } from "./src/utils/AudioPermission";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { store } from "./src/Redux/store";
+import { Provider } from 'react-redux';
+import ConexusStackNavigation from './src/Navigation/ConexusStackNavigation/ConexusStackNavigation';
 
 const App: React.FC = () => {
   const { background } = useThemeColors();
@@ -14,9 +17,13 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: background }]}>
-      <BottomNavigation />
-    </SafeAreaView>
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <SafeAreaView style={[styles.container, { backgroundColor: background }]}>
+          <ConexusStackNavigation />
+        </SafeAreaView>
+      </SafeAreaProvider>
+    </Provider>
   )
 }
 

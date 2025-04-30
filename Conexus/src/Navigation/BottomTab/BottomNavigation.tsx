@@ -77,9 +77,9 @@ const TabNavigator = () => {
 
 const BottomNavigation: React.FC = () => {
   return (
-    <NavigationContainer>
+    <>
       <TabNavigator />
-    </NavigationContainer>
+    </>
   )
 }
 

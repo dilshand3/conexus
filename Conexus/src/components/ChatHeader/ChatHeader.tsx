@@ -3,12 +3,14 @@ import React from 'react';
 import Icon from "../../utils/Icon";
 import { useThemeColors } from '../../utils/color';
 import { useNavigation } from '@react-navigation/native';
+import {useSafeAreaInsets} from "react-native-safe-area-context"
 
 const ChatHeader: React.FC = () => {
     const navigation = useNavigation()
     const { accent, background } = useThemeColors();
+    const inets = useSafeAreaInsets()
     return (
-        <View style={styles.header}>
+        <View style={[styles.header,{paddingTop : inets.top}]}>
             <StatusBar backgroundColor={background} barStyle="dark-content" />
             <Text style={styles.headingtxt}>Conexus</Text>
             <View style={styles.iconContainer}>
@@ -32,7 +34,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         paddingBottom: "1%",
         paddingLeft: "2.7%",
-        paddingTop: "4%"
+        // paddingTop: "4%"
     },
     headingtxt: {
         fontSize: 29,

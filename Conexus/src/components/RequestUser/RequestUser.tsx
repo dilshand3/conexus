@@ -2,13 +2,13 @@ import { Alert, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import Icon from '../../utils/Icon';
 
-interface requestUserDetail {
+interface IrequestUserDetail {
     username: string;
     name: string;
     avatar: any;
 }
 
-const RequestUser: React.FC<requestUserDetail> = ({ username, name, avatar }) => {
+const RequestUser: React.FC<IrequestUserDetail> = ({ username, name, avatar }) => {
 
     return (
         <View style={styles.container}>

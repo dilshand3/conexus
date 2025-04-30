@@ -11,7 +11,6 @@ import Fontisto from "react-native-vector-icons/Fontisto";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { TextProps } from 'react-native';
 
-
 interface IconProps extends TextProps {
   name: string;
   size?: number;

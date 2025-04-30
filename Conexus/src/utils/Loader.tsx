@@ -1,7 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import { View, Animated, StyleSheet, Easing } from 'react-native';
 
-const Loader: React.FC = () => {
+interface IloaderBar {
+    color?: string;
+}
+
+const Loader: React.FC<IloaderBar> = ({ color }) => {
     const animations = useRef<Animated.Value[]>(Array.from({ length: 8 }, () => new Animated.Value(0))).current;
 
     useEffect(() => {
@@ -34,13 +38,14 @@ const Loader: React.FC = () => {
                     <Animated.View
                         key={index}
                         style={[
-                            styles.bar,
+                            styles.bar, 
                             {
                                 transform: [
                                     { rotate: `${rotate}deg` },
                                     { translateY: -12 }, // Adjusted based on reduced size
                                 ],
                                 opacity: anim,
+                                backgroundColor : color || "#3498DB"
                             },
                         ]}
                     />
@@ -66,7 +71,6 @@ const styles = StyleSheet.create({
         width: 3,
         height: 8,
         borderRadius: 50,
-        backgroundColor: '#3498DB',
         shadowColor: '#3498DB',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.2,

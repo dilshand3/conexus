@@ -3,7 +3,7 @@ import React from 'react';
 import Icon from '../../utils/Icon';
 import { useThemeColors } from '../../utils/color';
 
-interface call {
+interface Icall {
   avatar: any;
   name: string;
   count?: number;
@@ -13,7 +13,7 @@ interface call {
   date: string;
 }
 
-const SingleCall: React.FC<call> = ({ avatar, name, count, type, direction, answered, date }) => {
+const SingleCall: React.FC<Icall> = ({ avatar, name, count, type, direction, answered, date }) => {
   const { accent } = useThemeColors();
   return (
     <View style={styles.container}>

@@ -208,205 +208,219 @@ const requestedUser: any[] = [
     }
 ]
 
-const exploreUser : any[] = [
+const exploreUser: any[] = [
     {
-        name : "dilshan",
-        username : "dilshan.d3",
-        avatar : dpimg
-    },{
-        name : "hansal_jii",
-        username : "tahir",
-        avatar : dpimg
-    },{
-        name : "zaher",
-        username : "zaheer",
-        avatar : dpimg
-    },{
-        name : "hamid khan",
-        username : "hamid",
-        avatar : dpimg
-    },{
-        name : "arif khan",
-        username : "arif",
-        avatar : dpimg
-    },{
-        name : "nikhil bishnoi",
-        username : "nikhil bishnoi",
-        avatar : dpimg
+        name: "dilshan",
+        username: "dilshan.d3",
+        avatar: dpimg
+    }, {
+        name: "hansal_jii",
+        username: "tahir",
+        avatar: dpimg
+    }, {
+        name: "zaher",
+        username: "zaheer",
+        avatar: dpimg
+    }, {
+        name: "hamid khan",
+        username: "hamid",
+        avatar: dpimg
+    }, {
+        name: "arif khan",
+        username: "arif",
+        avatar: dpimg
+    }, {
+        name: "nikhil bishnoi",
+        username: "nikhil bishnoi",
+        avatar: dpimg
     }
 ]
 
 const avatar = require("../assets/dp/dp.jpeg");
 
-const callsData : any[] = [
-  {
-    avatar,
-    name: "Rohan Sharma",
-    count: 1,
-    type: "audio",
-    direction: "incoming",
-    answered: true,
-    date: "Today, 10:12 AM"
-  },
-  {
-    avatar,
-    name: "Ananya Verma",
-    type: "video",
-    direction: "outgoing",
-    answered: true,
-    date: "Today, 9:00 AM"
-  },
-  {
-    avatar,
-    name: "Priya Mehta",
-    count: 3,
-    type: "audio",
-    direction: "incoming",
-    answered: false,
-    date: "Yesterday, 11:30 PM"
-  },
-  {
-    avatar,
-    name: "Aman Joshi",
-    type: "video",
-    direction: "incoming",
-    answered: true,
-    date: "Yesterday, 5:45 PM"
-  },
-  {
-    avatar,
-    name: "Mehul Soni",
-    type: "audio",
-    direction: "outgoing",
-    answered: false,
-    date: "Yesterday, 3:10 PM"
-  },
-  {
-    avatar,
-    name: "Tanya Kapoor",
-    count: 2,
-    type: "video",
-    direction: "incoming",
-    answered: true,
-    date: "Monday, 6:20 PM"
-  },
-  {
-    avatar,
-    name: "Kunal Raj",
-    type: "audio",
-    direction: "incoming",
-    answered: false,
-    date: "Monday, 1:55 PM"
-  },
-  {
-    avatar,
-    name: "Shruti Pandey",
-    count: 2,
-    type: "video",
-    direction: "outgoing",
-    answered: true,
-    date: "Sunday, 9:40 PM"
-  },
-  {
-    avatar,
-    name: "Aditya Singh",
-    type: "audio",
-    direction: "incoming",
-    answered: true,
-    date: "Sunday, 7:10 AM"
-  },
-  {
-    avatar,
-    name: "Ishita Roy",
-    type: "audio",
-    direction: "outgoing",
-    answered: false,
-    date: "Saturday, 4:05 PM"
-  },
-  {
-    avatar,
-    name: "Neha Mishra",
-    type: "video",
-    direction: "incoming",
-    answered: true,
-    date: "Saturday, 8:00 AM"
-  },
-  {
-    avatar,
-    name: "Yash Agarwal",
-    count: 4,
-    type: "audio",
-    direction: "incoming",
-    answered: false,
-    date: "Friday, 10:45 PM"
-  },
-  {
-    avatar,
-    name: "Ritika Saxena",
-    type: "video",
-    direction: "outgoing",
-    answered: true,
-    date: "Friday, 2:20 PM"
-  },
-  {
-    avatar,
-    name: "Siddharth Patel",
-    type: "audio",
-    direction: "incoming",
-    answered: true,
-    date: "Thursday, 11:00 AM"
-  },
-  {
-    avatar,
-    name: "Pooja Jaiswal",
-    count: 2,
-    type: "audio",
-    direction: "incoming",
-    answered: false,
-    date: "Thursday, 9:30 AM"
-  },
-  {
-    avatar,
-    name: "Harshit Bansal",
-    type: "video",
-    direction: "outgoing",
-    answered: false,
-    date: "Wednesday, 3:25 PM"
-  },
-  {
-    avatar,
-    name: "Divya Malhotra",
-    type: "audio",
-    direction: "incoming",
-    answered: true,
-    date: "Wednesday, 1:15 PM"
-  },
-  {
-    avatar,
-    name: "Aakash Chauhan",
-    count: 1,
-    type: "video",
-    direction: "incoming",
-    answered: false,
-    date: "Tuesday, 5:05 PM"
-  },
-  {
-    avatar,
-    name: "Simran Kaur",
-    type: "audio",
-    direction: "outgoing",
-    answered: true,
-    date: "Tuesday, 12:00 PM"
-  },
-  {
-    avatar,
-    name: "Nikhil Jain",
-    type: "video",
-    direction: "incoming",
-    answered: true,
-    date: "Monday, 7:50 AM"
-  }
+const callsData: any[] = [
+    {
+        avatar,
+        name: "Rohan Sharma",
+        count: 1,
+        type: "audio",
+        direction: "incoming",
+        answered: true,
+        date: "Today, 10:12 AM"
+    },
+    {
+        avatar,
+        name: "Ananya Verma",
+        type: "video",
+        direction: "outgoing",
+        answered: true,
+        date: "Today, 9:00 AM"
+    },
+    {
+        avatar,
+        name: "Priya Mehta",
+        count: 3,
+        type: "audio",
+        direction: "incoming",
+        answered: false,
+        date: "Yesterday, 11:30 PM"
+    },
+    {
+        avatar,
+        name: "Aman Joshi",
+        type: "video",
+        direction: "incoming",
+        answered: true,
+        date: "Yesterday, 5:45 PM"
+    },
+    {
+        avatar,
+        name: "Mehul Soni",
+        type: "audio",
+        direction: "outgoing",
+        answered: false,
+        date: "Yesterday, 3:10 PM"
+    },
+    {
+        avatar,
+        name: "Tanya Kapoor",
+        count: 2,
+        type: "video",
+        direction: "incoming",
+        answered: true,
+        date: "Monday, 6:20 PM"
+    },
+    {
+        avatar,
+        name: "Kunal Raj",
+        type: "audio",
+        direction: "incoming",
+        answered: false,
+        date: "Monday, 1:55 PM"
+    },
+    {
+        avatar,
+        name: "Shruti Pandey",
+        count: 2,
+        type: "video",
+        direction: "outgoing",
+        answered: true,
+        date: "Sunday, 9:40 PM"
+    },
+    {
+        avatar,
+        name: "Aditya Singh",
+        type: "audio",
+        direction: "incoming",
+        answered: true,
+        date: "Sunday, 7:10 AM"
+    },
+    {
+        avatar,
+        name: "Ishita Roy",
+        type: "audio",
+        direction: "outgoing",
+        answered: false,
+        date: "Saturday, 4:05 PM"
+    },
+    {
+        avatar,
+        name: "Neha Mishra",
+        type: "video",
+        direction: "incoming",
+        answered: true,
+        date: "Saturday, 8:00 AM"
+    },
+    {
+        avatar,
+        name: "Yash Agarwal",
+        count: 4,
+        type: "audio",
+        direction: "incoming",
+        answered: false,
+        date: "Friday, 10:45 PM"
+    },
+    {
+        avatar,
+        name: "Ritika Saxena",
+        type: "video",
+        direction: "outgoing",
+        answered: true,
+        date: "Friday, 2:20 PM"
+    },
+    {
+        avatar,
+        name: "Siddharth Patel",
+        type: "audio",
+        direction: "incoming",
+        answered: true,
+        date: "Thursday, 11:00 AM"
+    },
+    {
+        avatar,
+        name: "Pooja Jaiswal",
+        count: 2,
+        type: "audio",
+        direction: "incoming",
+        answered: false,
+        date: "Thursday, 9:30 AM"
+    },
+    {
+        avatar,
+        name: "Harshit Bansal",
+        type: "video",
+        direction: "outgoing",
+        answered: false,
+        date: "Wednesday, 3:25 PM"
+    },
+    {
+        avatar,
+        name: "Divya Malhotra",
+        type: "audio",
+        direction: "incoming",
+        answered: true,
+        date: "Wednesday, 1:15 PM"
+    },
+    {
+        avatar,
+        name: "Aakash Chauhan",
+        count: 1,
+        type: "video",
+        direction: "incoming",
+        answered: false,
+        date: "Tuesday, 5:05 PM"
+    },
+    {
+        avatar,
+        name: "Simran Kaur",
+        type: "audio",
+        direction: "outgoing",
+        answered: true,
+        date: "Tuesday, 12:00 PM"
+    },
+    {
+        avatar,
+        name: "Nikhil Jain",
+        type: "video",
+        direction: "incoming",
+        answered: true,
+        date: "Monday, 7:50 AM"
+    }
+];
+
+const shortUrls: string[] = [
+    "http://conxux-vercelxyz.app/239842",
+    "http://conxux-vercelxyz.app/239842",
+    "http://conxux-vercelxyz.app/239842",
+    "http://conxux-vercelxyz.app/239842",
+    "http://conxux-vercelxyz.app/239842",
+    "http://conxux-vercelxyz.app/239842",
+    "http://conxux-vercelxyz.app/239842",
+    "http://conxux-vercelxyz.app/239842",
+    "http://conxux-vercelxyz.app/239842",
+    "http://conxux-vercelxyz.app/239842"
 ];
 
 
-export { chatList, groupList, profileDetailData,requestedUser,exploreUser,callsData }
+
+export { chatList, groupList, profileDetailData, requestedUser, exploreUser, callsData,shortUrls }

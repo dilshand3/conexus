@@ -3,11 +3,11 @@ import React from 'react';
 import Icon from "../../utils/Icon";
 import { useThemeColors } from "../../utils/color";
 
-interface input{
+interface Iinput{
       placeholder : string;
 }
 
-const SearchInput : React.FC<input> = ({placeholder}) => {
+const SearchInput : React.FC<Iinput> = ({placeholder}) => {
     const { color } = useThemeColors();
     return (
         <View style={styles.searchContainer}>

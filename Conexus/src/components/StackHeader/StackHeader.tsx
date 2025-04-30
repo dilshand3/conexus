@@ -2,17 +2,19 @@ import { StyleSheet, Text, View, Pressable } from 'react-native';
 import React from 'react';
 import Icon from '../../utils/Icon';
 import { useNavigation } from '@react-navigation/native';
+import {useSafeAreaInsets} from "react-native-safe-area-context"
 
-interface stackheader {
+interface Istackheader {
     title: string;
     left?: string;
 }
 
-const StackHeader: React.FC<stackheader> = ({title,left}) => {
+const StackHeader: React.FC<Istackheader> = ({title,left}) => {
     const navigation = useNavigation();
+    const insets = useSafeAreaInsets();
     return (
         <View style={styles.parentCotainer}>
-            <View style={styles.container}>
+            <View style={[styles.container,{paddingTop : insets.top}]}>
                 <Pressable onPress={() => navigation.goBack()}>
                     <Icon
                         name="angle-left"
@@ -40,7 +42,7 @@ const styles = StyleSheet.create({
         width: "69%",
         justifyContent: "space-between",
         paddingHorizontal: "5.5%",
-        paddingTop: "4.5%",
+        // paddingTop: "4.5%",
     },
     title: {
         color: "#3498DB",
